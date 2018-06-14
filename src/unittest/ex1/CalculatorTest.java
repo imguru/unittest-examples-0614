@@ -21,6 +21,13 @@ import org.junit.Test; // junit4
 
 import static org.junit.Assert.*;
 
+
+// 단위 테스트 핵심
+// 1. 가독성
+// 2. 신뢰성
+// 3. 유지보수성
+
+
 // junit4 / junit5 => AOP(관점 지향 프로그래밍)
 // => alt + enter
 public class CalculatorTest {
@@ -73,6 +80,20 @@ public class CalculatorTest {
         }
         */
     }
+
+    @Test
+    public void subTest() {
+        Calculator calc = new Calculator();
+        // Fixture
+        //  정의: xUnit에서 SUT를 실행하기 위해 해주어야 하는 사전 작업
+        //  (객체 생성, 초기화, 기타 준비 작업)
+        //  => 픽스쳐를 설치(setup)한다.
+
+        calc.sub(10);
+        calc.sub(32);
+
+        assertEquals("-10 - 32", -42, calc.display());
+    }
 }
 
 
@@ -116,7 +137,7 @@ class Calculator {
     }
 
     public int display() {
-        return 0;
+        return value;
     }
 }
 
