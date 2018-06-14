@@ -4,6 +4,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import static org.junit.Assert.*;
 
 // 파라미터화 테스트(Parameterized Test Pattern)
@@ -21,7 +24,7 @@ import static org.junit.Assert.*;
 
 //   Object[][] data = [ {"tom"}, {"bob"}, {"alice"}]
 //   * Parameterized Test Runner
-//   TestCase tc = new TestCase({"tom"});
+//   TestCase tc = new TestCase({"tom"}); // Reflection UserNameTest.class
 //   tc.setUp();
 //   tc.testBody();
 //   tc.tearDown();
@@ -39,6 +42,29 @@ import static org.junit.Assert.*;
 // 1. 기존의 Test Runner와 동작 방식이 다릅니다,.
 @RunWith(value = Parameterized.class)
 public class UserNameTest {
+
+    private String name;
+
+    // 3. 데이터 셋을 전달받기 위한 생성자/필드 정의
+    public UserNameTest(String name) {
+        this.name = name;
+    }
+
+    // 2. Data set 정의 - static
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] {
+                { "tom" },
+                { "bob" },
+                { "alice" }
+        });
+    }
+
+    // 4. 이제 다양한 테스트 메소드를 추가하면 됩니다.
+    @Test
+    public void isValidNameTest() {
+        assertTrue(User.isValidName(name));
+    }
 
 }
 
