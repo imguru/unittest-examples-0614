@@ -5,6 +5,8 @@ package unittest.ex3;
 
 import org.junit.Test;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.*;
 
 public class xUnitExamples {
@@ -42,6 +44,21 @@ public class xUnitExamples {
         String badStr = "x16";
 
         parseInt(badStr);
+    }
+
+    // 2. 비기능 테스트 - 시간
+    public void slowFeature() throws InterruptedException {
+        // 2 sec
+        TimeUnit.MILLISECONDS.sleep(2500);
+    }
+
+    // 기능적으로 동작해도, 2초 이상 걸리면 실패해야 한다.
+    //  junit4는 ms의 해상도만 지원하고 있습니다.
+    //   - junit5는 ms, us, ns 고해상도의 타이머를 제공하고 있습니다.
+    //   - assert 함수를 통해 측정이 가능합니다.
+    @Test(timeout = 2000)
+    public void slowFeatureTest() throws Exception {
+        slowFeature();
     }
 
 }
