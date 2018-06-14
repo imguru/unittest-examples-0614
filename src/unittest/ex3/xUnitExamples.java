@@ -3,6 +3,7 @@ package unittest.ex3;
 // xUnit Test Framework이 가지고 있는 공통의 기능을 정리해봅시다.
 // => junit 4
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -49,7 +50,7 @@ public class xUnitExamples {
     // 2. 비기능 테스트 - 시간
     public void slowFeature() throws InterruptedException {
         // 2 sec
-        TimeUnit.MILLISECONDS.sleep(2500);
+        // TimeUnit.MILLISECONDS.sleep(2500);
     }
 
     // 기능적으로 동작해도, 2초 이상 걸리면 실패해야 한다.
@@ -61,7 +62,57 @@ public class xUnitExamples {
         slowFeature();
     }
 
+
+    // 3. 테스트 비활성화
+    // 아래처럼 작성 중이거나 유지 보수 대상 테스트를 주석 처리하면 안됩니다.
+    //  => 잊혀진 테스트
+    //  => 비활성화하는 기능을 제공하고 있습니다.
+
+    // junit5: Ignore -> Disabled
+    @Ignore(value = "지금 작성중입니다. 유지보수가 필요합니다.")
+    @Test
+    public void foo() {
+        fail("TODO: 작성 중입니다.");
+    }
+
+    // 4. 단언문
+    //   : assertEquals:  배열, 실수
+    //     assertNotNull
+    //     assertTrue
+    //     assertFalse
+    //     ...
+    @Test
+    public void equalsTest() throws Exception {
+        String[] names = { "Alice", "Tom" };
+        String[] actual = { "Alice", "Tom" };
+
+        // 배열 전용 단언문
+        // assertArrayEquals(names, actual);
+        assertArrayEquals(names, actual);
+
+        // double, float => Floating Point Type(부동 소수점)
+        //               => 연산에 오차가 발생한다.
+        double expected = 0.7;
+        double result = 0.1 * 7;
+
+        assertEquals(expected, result, 0.000001);
+
+//        if (expected == result) {
+//            System.out.println("same");
+//        } else {
+//            System.out.println("diff");
+//        }
+
+        // assertEquals(expected, result);
+
+    }
+
+
+
+
 }
+
+
 
 
 
