@@ -20,6 +20,16 @@ import static org.junit.Assert.*;
 
 //  2. 테스트가 어떤 데이터를 통해 수행되는지 알기 어렵다.
 //   => junit 4에서는 해당 문제를 보완할 수 있습니다.
+//   => Google Test에서는 제공되지 않습니다.
+
+//  3. junit5에서는 완전히 변경되었습니다.
+//    1) 파라미터화 테스트는 별도의 테스트 케이스 클래스로 분리되어야 합니다.
+//      => 이제는 같은 테스트 케이스 클래스 안에서 파라미터화 테스트를 구성하는 것이 가능합니다.
+
+//    2) 정적인 데이터를 다루어야 한다.
+//      => 많은 개수의 데이터가 있을 경우, 로드할 수 없을 수 있다.
+//      => 동적으로 처리할 수 있도록 변경되었습니다.
+//    * Test Factory 라는 이름으로 소개되었습니다.
 
 
 // 파라미터화 테스트를 적용하는 방법
@@ -95,6 +105,11 @@ public class UserNameTest {
 
 // SUT
 class User {
+    // Test
+    //  - foo()
+
+
+    // Parameterized Test
     public static boolean isValidName(String name) {
         // 사용자의 이름은 반드시 소문자로 이루어져 있어야 하고, 5글자 이상이어야 한다.
         char[] chars = name.toCharArray();
