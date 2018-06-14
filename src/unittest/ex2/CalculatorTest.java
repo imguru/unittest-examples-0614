@@ -1,5 +1,6 @@
 package unittest.ex2;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -71,7 +72,7 @@ public class CalculatorTest {
 }
 */
 
-// 3. 암묵적(Implicit) 설치
+// 3. 암묵적(Implicit) 설치/해체
 //   : xUnit Test Framework가 지원하는 기능을 이용한다.
 // Pros: 테스트 코드 중복을 제거하고, 불필요한 상호 작용을 감출 수 있다.
 // Cons: 테스트 메소드를 이해하기 어려울 수 있다.
@@ -80,19 +81,46 @@ public class CalculatorTest {
 //  CalculatorTest testcase = new CalculatorTest();
 //  testcase.setUp()      ; 암묵적으로 호출되는 픽스쳐 설치 용도 메소드
 //  testcase.addTest()
+//  testcase.tearDown()   ; 암묵적으로 호출되는 픽스쳐 해체 용도 메소드
 
+//  CalculatorTest testcase = new CalculatorTest();
 //  testcase.setUp()
 //  testcase.subTest()
+//  testcase.tearDown()
+// => 테스트 메소드를 수행하기 전에 새로운 테스트 케이스 객체를 생성한다.
+//   : 신선한 픽스쳐 전략
+
+
+// 테스트 메소드를 수행하기 이전의 상태와 테스트 메소드를 수행한 이후의 상태가
+// 항상 동일해야 한다.
+
+// 3A -> xUnit Test Pattern
+//   4단계 테스트 패턴(Four phase test pattern)
+// 1단계: 픽스쳐를 설치하거나 관찰하기 위해 필요한 것을 집어넣는 작업 - setup()
+// 2단계: SUT와 상호작용한다.
+// 3단계: 기대결과가 나왔는지 확인한다.
+// 4단계: 픽스쳐를 해체해서, 테스트 이전 상태로 돌려놓는다. - 중요! - tearDown()
 
 
 // TestCase(테스트 메소드 집합) / TestSuite('동일한 픽스쳐'를 가진 테스트 메소드 집합)
 public class CalculatorTest {
+
+    public CalculatorTest() {
+        System.out.println("TestCase()");
+    }
 
     private Calculator calc;
     @Before
     public void setUp() {
         System.out.println("setUp");
         calc = new Calculator();
+    }
+
+    @After
+    public void tearDown() {
+        System.out.println("tearDown");
+        // delete calc;
+        // free(calc)
     }
 
     @Test
