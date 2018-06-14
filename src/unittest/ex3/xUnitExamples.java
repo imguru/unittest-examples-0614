@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.sun.tools.internal.ws.wsdl.parser.Util.fail;
 import static org.junit.Assert.*;
 
 public class xUnitExamples {
