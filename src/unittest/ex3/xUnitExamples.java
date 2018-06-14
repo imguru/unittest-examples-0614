@@ -36,7 +36,8 @@ public class xUnitExamples {
     }
 
     // GoogleTest: ASSERT_THROW(...)
-    @Test(expected = NumberFormatException.class)
+    // junit5: assertThrows() 별도의 함수를 통해서 예외 테스트를 수행할 수 있습니다.
+    @Test(expected = NumberFormatException.class) // junit 4
     public void parseIntTest() {
         String badStr = "x16";
 
