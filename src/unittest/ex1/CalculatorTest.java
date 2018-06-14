@@ -47,5 +47,44 @@ public class Program {
 }
 */
 
-// SUT
-class Calculator {}
+// SUT: System Under Test
+//  => CUT(Code Under Test, Class Under Test)
+//  => 테스트 대상 시스템
+
+class Calculator {
+    private int value;
+
+    public Calculator() {
+        this.value = 0;
+    }
+
+    public void add(int a) {
+        value += a;
+    }
+
+    public void sub(int a) {
+        value -= a;
+    }
+
+    public int display() {
+        return value;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
