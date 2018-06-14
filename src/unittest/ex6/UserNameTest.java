@@ -56,7 +56,8 @@ public class UserNameTest {
         return Arrays.asList(new Object[][] {
                 { "tom" },
                 { "bob" },
-                { "alice" }
+                { "alice" },
+                { "clock" },
         });
     }
 
