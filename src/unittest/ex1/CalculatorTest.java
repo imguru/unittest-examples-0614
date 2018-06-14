@@ -11,7 +11,7 @@ package unittest.ex1;
 //  - class CalculatorTest extends TestCase {}
 
 // import junit.framework.TestCase;
-// https://github.com/ourguide/unittest-examples-0614.git
+// https://github.com/imguru/unittest-examples-0614.git
 
 import org.junit.Test;
 
