@@ -8,6 +8,8 @@ import java.util.logging.Level;
 
 import static org.junit.Assert.assertTrue;
 
+// https://github.com/imguru/unittest-examples-0614
+
 // DLog 객체에 대해서 write를 수행하였을 때, 등록된 Target에 제대로
 // 전달되는가?
 
