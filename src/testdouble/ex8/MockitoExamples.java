@@ -178,6 +178,9 @@ public class MockitoExamples {
     @Mock
     private List<String> mockedList;
 
+    @Mock
+    private List<String> mockedList2;
+
     @Before
     public void setUp() {
         // @Mock
@@ -193,7 +196,8 @@ public class MockitoExamples {
     }
 }
 
-
+// Mockito Framework -> 격리 프레임워크
+//                   => Stub, Spy
 
 
 
