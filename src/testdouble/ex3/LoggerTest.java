@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 //  => 작성하는 테스트 코드의 실패 지점을 최소화 한다.
 //  => 결함 국소화: 테스트가 실패할 경우, 실패 지점을 바로 알아낼 수 있어야 한다.
 
+/*
 public class LoggerTest {
     @Test
     public void isValidFilename_NameLoggerThan5Chars_ReturnsTrue() {
@@ -45,7 +46,7 @@ public class LoggerTest {
         assertFalse("파일명이 다섯글자 미만일 때", actual);
     }
 
-    /*
+
     @Test
     public void isValidFilename_NameShorterThan5Chars_ReturnsFalse() {
         String filename = "bad.log";
@@ -54,9 +55,50 @@ public class LoggerTest {
         assertFalse("파일명이 다섯글자 미만일 때",
                 logger.isValidFilename(filename));
     }
-    */
-
 }
+*/
+
+
+// Stub: 협력 객체를 간단하게 대신하기 위해 쓰이는 '제어 가능한' 테스트 대역
+class StubFileSystem implements IFileSystemManager {
+    boolean result;
+
+    @Override
+    public boolean isValid(String filename) {
+        return result;
+    }
+}
+
+public class LoggerTest {
+    @Test
+    public void isValidFilename_NameLoggerThan5Chars_ReturnsTrue() {
+
+        String filename = "goodname.log";
+        StubFileSystem stub = new StubFileSystem();
+        stub.result = true;
+        Logger logger = new Logger(stub);
+
+
+        boolean actual = logger.isValidFilename(filename);
+
+
+        assertTrue("파일명이 다섯글자 이상일 때", actual);
+    }
+
+
+    @Test
+    public void isValidFilename_NameShorterThan5Chars_ReturnsFalse() {
+        String filename = "bad.log";
+        StubFileSystem stub = new StubFileSystem();
+        stub.result = true;
+        Logger logger = new Logger(stub);
+
+        boolean actual = logger.isValidFilename(filename);
+
+        assertFalse("파일명이 다섯글자 미만일 때", actual);
+    }
+}
+
 
 
 // 아래의 설계는 테스트 대역을 적용하기 어렵습니다. - 문제점!
