@@ -4,14 +4,17 @@ package testdouble.ex9;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class MockitoLoggerTest {
     @Test
     public void isValidFilename_NameLoggerThan5Chars_ReturnsTrue() {
 
         String filename = "goodname.log";
-        StubFileSystem stub = new StubFileSystem();
-        stub.result = true;
+        IFileSystemManager stub = mock(IFileSystemManager.class);
+        when(stub.isValid(anyString())).thenReturn(true);
         Logger logger = new Logger(stub);
 
 
@@ -25,8 +28,8 @@ public class MockitoLoggerTest {
     @Test
     public void isValidFilename_NameShorterThan5Chars_ReturnsFalse() {
         String filename = "bad.log";
-        StubFileSystem stub = new StubFileSystem();
-        stub.result = true;
+        IFileSystemManager stub = mock(IFileSystemManager.class);
+        when(stub.isValid(anyString())).thenReturn(true);
         Logger logger = new Logger(stub);
 
         boolean actual = logger.isValidFilename(filename);
@@ -36,18 +39,7 @@ public class MockitoLoggerTest {
 }
 
 
-// Stub: 협력 객체를 간단하게 대신하기 위해 쓰이는 '제어 가능한' 테스트 대역
-class StubFileSystem implements IFileSystemManager {
-    boolean result;
-
-    @Override
-    public boolean isValid(String filename) {
-        return result;
-    }
-}
-
-
-
+//-----------------------------
 interface IFileSystemManager {
     boolean isValid(String filename);
 }
