@@ -31,7 +31,6 @@ class TestEngine extends Engine {
 }
 
 
-
 // Car 객체에 대해서 go를 수행하였을 경우, Engine 객체의 start가
 // 제대로 호출되는지 여부를 검증하고 싶다.
 public class EngineTest {
@@ -86,3 +85,4 @@ class Car {
         engine.start();
     }
 }
+
