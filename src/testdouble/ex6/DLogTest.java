@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+import static org.junit.Assert.assertTrue;
+
 // DLog 객체에 대해서 write를 수행하였을 때, 등록된 Target에 제대로
 // 전달되는가?
 
@@ -38,7 +40,16 @@ class SpyTarget implements Target {
 public class DLogTest {
     @Test
     public void writeTest() {
+        SpyTarget spy1 = new SpyTarget();
+        SpyTarget spy2 = new SpyTarget();
+        DLog dlog = new DLog(spy1, spy2);
+        Level level = Level.INFO;
+        String message = "log testing message";
 
+        dlog.write(level, message);
+
+        assertTrue(spy1.received(level, message));
+        assertTrue(spy2.received(level, message));
     }
 }
 
