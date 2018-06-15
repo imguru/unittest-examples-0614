@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -48,6 +49,9 @@ public class UserManagerTest {
 
         manager.create(name, age);
 
+        // 사용자 정의 객체를 assertEquals를 통해 비교하는 경우,
+        // 반드시 equals를 재정의해야 합니다.
+        // C++: 연산자 재정의를 통해 비교 가능하도록 만들어주어야 한다.
         assertEquals(expected, manager.findOne(name));
     }
 }
@@ -82,6 +86,16 @@ class UserManager {
 
 }
 
+// 객체 동등성
+//   1) equals
+//   2) hashCode
+//  => equals를 재정의하면 hashCode 재정의 해야 한다.
+//   3) toString
+//    : 테스트가 실패할 경우, 객체의 값을 확인하는 용도로 편리하다.
+
+//  => Kotlin
+//   data class User(val name: String, val age: Int)
+
 class User {
     private String name;
     private int age;
@@ -90,6 +104,63 @@ class User {
         this.name = name;
         this.age = age;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return age == user.age &&
+                Objects.equals(name, user.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
+    /*
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User(name=%s,age=%d)", name, age);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // 1. obj != null
+        if (obj == null)
+            return false;
+
+        // 2. 참조 동등성 체크
+        if (this == obj)
+            return true;
+
+        // 3. 타입 체크
+        if (obj.getClass() != User.class)
+            return false;
+
+        User u = (User)obj;
+
+        // 4. 내용 비교
+        return Objects.equals(name, u.name)
+                && age == u.age;
+    }
+    */
 }
 
 
