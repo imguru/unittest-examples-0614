@@ -91,6 +91,7 @@ interface Target {
 // HttpTarget -> POST message
 class DLog {
     private Target[] targets;
+
     public DLog(Target... targets) {
         this.targets = targets;
     }
